@@ -4,6 +4,8 @@ import Logo from '../../../assets/images/ddc_logo.png';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import {useNavigation} from '@react-navigation/native'
+import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
+
 const SigninScreen = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

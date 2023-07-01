@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "846234340149",
+    "project_id": "ddc-app-63060",
+    "storage_bucket": "ddc-app-63060.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846234340149:android:8fe65e76982d76652bda7c",
+        "android_client_info": {
+          "package_name": "com.ddc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846234340149-5a9qibom1dkiiobf83tk4g0ovt0bvga8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ddc",
+            "certificate_hash": "92032c4045d523c49f3d0ee07c071f8d493005ae"
+          }
+        },
+        {
+          "client_id": "846234340149-0tiqbbbd7a057jltr6v3sknam8dmc9ub.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaUvB325y7E2YFEnKkHzuJ8edG-Wfvvrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846234340149-0tiqbbbd7a057jltr6v3sknam8dmc9ub.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

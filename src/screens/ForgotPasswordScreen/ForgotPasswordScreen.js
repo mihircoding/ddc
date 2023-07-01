@@ -2,20 +2,16 @@ import { View, Text, StyleSheet, ScrollView, useWindowDimensions } from 'react-n
 import React, { useState } from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
-
+import { useNavigation } from '@react-navigation/native';
 const ForgotPasswordScreen = () => {
     const [username, setUsername] = useState('');
-
+    const navigation = useNavigation();
     const onSendPressed = () => {
-        console.warn('sendPass');
-    };
-
-    const resendCode = () => {
-        console.warn('resend code');
+        navigation.navigate('NewPassword');
     };
 
     const onBackSignIn = () => {
-        console.warn('sign back')
+        navigation.navigate('SignIn');
     };
 
     return (
@@ -23,7 +19,7 @@ const ForgotPasswordScreen = () => {
             <View style={styles.root}>
                 <Text style={styles.title}>Reset your password</Text>
                 <CustomInput
-                    placeholder="Enter your confirmation code"
+                    placeholder="Enter your username"
                     value={username}
                     setValue={setUsername}
                 />

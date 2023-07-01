@@ -3,12 +3,13 @@ import React, { useState } from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
-
+import { useNavigation } from '@react-navigation/native';
 const ConfirmEmailScreen = () => {
     const [code, setCode] = useState('');
+    const navigation = useNavigation();
 
     const onConfirmPressed = () => {
-        console.warn('confirmed');
+        navigation.navigate('Home');
     };
 
     const resendCode = () => {
@@ -16,7 +17,7 @@ const ConfirmEmailScreen = () => {
     };
 
     const onBackSignIn = () => {
-        console.warn('sign back')
+        navigation.navigate('SignIn');
     };
 
     return (

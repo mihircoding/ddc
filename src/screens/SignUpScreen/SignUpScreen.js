@@ -1,21 +1,27 @@
 import { View, Text, StyleSheet, ScrollView, useWindowDimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../navigation/AuthProvider';
 
 const SignUpScreen = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
+    
+    const {register} = useContext(AuthContext);
 
+    const navigation = useNavigation();
+    
     const onRegisterPressed = () => {
-        console.warn('Registered');
+        navigation.navigate('ConfirmEmail');
     };
 
     const onSignInPressed = () => {
-        console.warn('sign up pressed')
+        navigation.navigate('SignIn');
     };
 
     return (
@@ -46,7 +52,7 @@ const SignUpScreen = () => {
                     secureTextEntry
                 />
 
-                <CustomButton text='Register' onPress={onRegisterPressed} />
+                <CustomButton text='Register' onPress={() => register(email,password)} />
 
                 <SocialSignInButtons/>
 
