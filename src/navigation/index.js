@@ -1,5 +1,6 @@
+
 import { View, Text } from 'react-native'
-import React, {useState, useEffect, useContext} from 'react'
+import React, {Component, useState, useEffect, useContext} from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SignUpScreen from '../screens/SignUpScreen/SignUpScreen';
@@ -8,27 +9,10 @@ import ConfirmEmailScreen from '../screens/ConfirmEmailScreen/ConfirmEmailScreen
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen/ForgotPasswordScreen';
 import NewPasswordScreen from '../screens/NewPasswordScreen.js/NewPasswordScreen';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
-import auth from "@react-native-firebase/auth";
-import { AuthContext } from './AuthProvider';
-
+import auth, {firebase} from '@react-native-firebase/auth';
 
 const Navigation = () => {
   const Stack = createStackNavigator();
-
-  const {user,setUser} = useContext(AuthContext);
-  const [initializing,setInitializing] = useState(true);
-
-  const onAuthStateChanged = (user) => {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
-
-  if (initializing) return null;
 
   return (
     <NavigationContainer>
@@ -44,4 +28,4 @@ const Navigation = () => {
   )
 }
 
-export default Navigation
+export default Navigation;

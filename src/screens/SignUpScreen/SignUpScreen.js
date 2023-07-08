@@ -1,28 +1,61 @@
-import { View, Text, StyleSheet, ScrollView, useWindowDimensions } from 'react-native'
+import { Alert,View, Text, StyleSheet, ScrollView, useWindowDimensions } from 'react-native'
 import React, { useContext, useState } from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
-import { AuthContext } from '../../navigation/AuthProvider';
+import auth from "@react-native-firebase/auth";
 
 const SignUpScreen = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
-    
-    const {register} = useContext(AuthContext);
-
+    const [error,setError] = useState("");
+    const [isValid,setValid] = useState(""); 
     const navigation = useNavigation();
-    
-    const onRegisterPressed = () => {
-        navigation.navigate('ConfirmEmail');
-    };
 
     const onSignInPressed = () => {
         navigation.navigate('SignIn');
     };
+
+    const validateEmail = email => {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+      };
+
+    const doSignUp = () => {
+    if (!email) {
+      setError("Email required *");
+      setValid(false);
+      return
+    } else if (!password && password.trim() && password.length > 6) {
+      setError("Weak password, minimum 5 characters");
+      setValid(false);
+      return
+    } else if (!validateEmail(email)) {
+      setError("Invalid Email");
+      setValid(false);
+      return
+    }
+
+    doCreateUser(email,password);
+}
+
+  const doCreateUser = async (email, password) => {
+    try {
+      let response = await auth().createUserWithEmailAndPassword(
+        email,
+        password
+      )
+      if (response && response.user) {
+        Alert.alert("Success ✅", "Account created successfully")
+        navigation.navigate('ConfirmEmail');
+    }
+    } catch (e) {
+      console.error(e.message)
+    }
+  }
 
     return (
         <ScrollView>
@@ -37,13 +70,15 @@ const SignUpScreen = () => {
                     placeholder="Email"
                     value={email}
                     setValue={setEmail}
-                    
+                    error = {isValid}
+
                 />
                 <CustomInput
                     placeholder="Password"
                     value={password}
                     setValue={setPassword}
                     secureTextEntry
+                    error={isValid}
                 />
                 <CustomInput
                     placeholder="Repeat Password"
@@ -52,9 +87,9 @@ const SignUpScreen = () => {
                     secureTextEntry
                 />
 
-                <CustomButton text='Register' onPress={() => register(email,password)} />
+                <CustomButton text='Register' onPress={doSignUp} />
 
-                <SocialSignInButtons/>
+                <SocialSignInButtons />
 
                 <CustomButton
                     text="Have an account? Sign in "
